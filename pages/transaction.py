@@ -100,8 +100,8 @@ def update_time_series_plot(selected_acc_random, df, df_histogram):
     return fig
 
 # Load data and preprocess it
-SATXNREC_SAR_PATH = "../Data/SAR/SATXNREC_SAR.csv"
-SAMASTER_SAR_PATH = "../Data/SAR/SAMASTER_SAR.csv"
+SATXNREC_SAR_PATH = "./Data/SAR/SATXNREC_SAR.csv"
+SAMASTER_SAR_PATH = "./Data/SAR/SAMASTER_SAR.csv"
 df, df_histogram = data_preprocessing(SATXNREC_SAR_PATH, SAMASTER_SAR_PATH)
 dash.register_page(__name__, name='Transaction Data Dashboard', description='This is a dashboard for transaction data.')
 layout = create_layout(df)

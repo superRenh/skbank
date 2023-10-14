@@ -85,7 +85,7 @@ def update_treemap_chart(selected_acc_random, selected_date):
     return fig
 
 column_of_risk = ["SAMST_CUST_STAT", "SAMST_OD_STAT", "SAMST_TXN_STOP_STAT","SAMST_COURT_STAT", "SAMST_WARN_STAT", "SAMST_OD_OV_STAT", "SAMST_WASH_DB_OV_FLAG", "SAMST_WASH_CR_OV_FLAG"]
-SAMASTER_SAR_PATH = "../Data/SAR/SAMASTER_SAR.csv"
+SAMASTER_SAR_PATH = "./Data/SAR/SAMASTER_SAR.csv"
 df_samaster_sar_feature, df_long = data_preprocessing(column_of_risk, SAMASTER_SAR_PATH)
 # Get unique date values
 unique_dates = df_samaster_sar_feature['SNAP_DATE'].unique()
