@@ -1,7 +1,8 @@
 import dash
+import dash_bootstrap_components as dbc
 from dash import Dash, html, dcc, Input, Output, ClientsideFunction, State
 
-app = Dash(__name__, use_pages=True)
+app = Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.MINTY])
 server = app.server
 
 
