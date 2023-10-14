@@ -3,6 +3,8 @@ import dash
 from dash import dcc, html, Input, Output, callback
 import plotly.graph_objects as go
 import plotly.express as px
+import dash_bootstrap_components as dbc
+
 
 # data preprocessing functions
 def remove_comma_str(number_str):
@@ -50,12 +52,15 @@ def create_layout(df):
         dcc.Graph(id='time-series-plot'),
         
         html.Label("Filter by ACC_RANDOM:"),
-        dcc.Dropdown(
-            id='acc-random-dropdown',
-            options=[
-                {'label': f'ACC_RANDOM {acc}', 'value': acc} for acc in df['ACC_RANDOM'].unique()
+        dbc.DropdownMenu(
+        label="Select ACC_RANDOM",
+        children=[
+            dbc.DropdownMenuItem(
+                f'ACC_RANDOM {acc}',
+                id={'type': 'acc-dropdown', 'index': acc},
+                n_clicks=0  # Initialize the click count to 0
+            ) for acc in df['ACC_RANDOM'].unique()
             ],
-            value=df['ACC_RANDOM'].iloc[0]
         )
     ])
     
