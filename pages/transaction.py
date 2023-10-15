@@ -25,7 +25,7 @@ def data_preprocessing(SATXNREC_SAR_PATH, SAMASTER_SAR_PATH):
     df_satxnrec_sar_plot["SATXN_TXN_DATETIME"] = df_satxnrec_sar_plot["SATXN_BUSI_DATE"] + " " + df_satxnrec_sar_plot["SATXN_TXN_TIME"]
     df_satxnrec_sar_plot["SATXN_TXN_AMT"] = df_satxnrec_sar_plot["SATXN_TXN_AMT"].apply(remove_comma_str)
     df_satxnrec_sar_plot["SATXN_TXN_AMT"] = df_satxnrec_sar_plot["SATXN_TXN_AMT"].astype(float)
-    df_satxnrec_sar_plot["SATXN_TXN_AMT_DIR"] = df_satxnrec_sar_plot.apply(lambda x: float(x["SATXN_TXN_AMT"]) *(-1) if x["SATXN_DB_CR_STAT"]==2 else float(x["SATXN_TXN_AMT"]), axis=1)
+    df_satxnrec_sar_plot["SATXN_TXN_AMT_DIR"] = df_satxnrec_sar_plot.apply(lambda x: float(x["SATXN_TXN_AMT"]) *(-1) if x["SATXN_DB_CR_STAT"]==1 else float(x["SATXN_TXN_AMT"]), axis=1)
     df_satxnrec_sar_plot = df_satxnrec_sar_plot[["ACC_RANDOM", "SATXN_TXN_DATETIME", "SATXN_TXN_AMT_DIR", "SATXN_TXN_AMT"]]
 
     df_samaster_sar = pd.read_csv(SAMASTER_SAR_PATH).drop_duplicates()
@@ -49,8 +49,8 @@ def create_layout(df):
         html.H1("交易資料與餘額資料儀表板"),
         html.P("透過了解客戶的交易行為和帳戶餘額的變動情況，有助於銀行同仁追踪和管理資金流動。"),
         html.Ul([html.Li("橫軸代表時間，縱軸表示金額"),
-                html.Li("人工審核的困境"),
-                html.Li("缺乏直觀的操作界面")]),
+                html.Li("交易數據:\n使用不同顏色和大小的點來表示每次的交易金額。正值（位於X軸以上,貸方交易）代表金錢轉入，而負值（位於X軸以下,借方交易）代表金錢轉出。\n點的大小則代表交易的金額，較大的點表示較大筆的交易。", style={'white-space': 'pre-line'}),
+                html.Li("帳戶餘額:\n用紅色的折線圖表示，它展示了隨著時間的進行，帳戶餘額是如何變化的。從圖中可以看到，每次交易後，無論是轉入還是轉出，都會影響到帳戶的餘額。", style={'white-space': 'pre-line'})]),
         html.Br(),
         dcc.Graph(id='time-series-plot'),
         
