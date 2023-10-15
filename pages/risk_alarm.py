@@ -14,7 +14,7 @@ def generate_parent(df):
         return ''
     else:
         return '風險警示'
-def data_preprocessing(column_of_risk, SAMASTER_SAR_PATH):
+def data_preprocessing(column_of_risk, SAMASTER_SAR_PATH, map_dict):
     df_samaster_sar = pd.read_csv(SAMASTER_SAR_PATH).drop_duplicates()
     df_samaster_sar_feature = df_samaster_sar[["ACC_RANDOM", "SNAP_DATE", "SAMST_CUST_STAT", "SAMST_OD_STAT", "SAMST_TXN_STOP_STAT","SAMST_COURT_STAT", "SAMST_WARN_STAT", "SAMST_OD_OV_STAT", "SAMST_WASH_DB_OV_FLAG", "SAMST_WASH_CR_OV_FLAG"]]
     df_samaster_sar_feature[column_of_risk] = df_samaster_sar_feature[column_of_risk].astype(int)
@@ -27,6 +27,7 @@ def data_preprocessing(column_of_risk, SAMASTER_SAR_PATH):
     df_long = df_samaster_sar_feature.melt(id_vars=['ACC_RANDOM', 'SNAP_DATE'], var_name='Label', value_name='Value').sort_values(by=['ACC_RANDOM', 'SNAP_DATE'])
     df_long['Alarm'] = df_long.apply(alarm_rule, axis=1)
     df_long['Parent'] = df_long.apply(generate_parent, axis=1)
+    df_long['CN_Label'] = df_long['Label'].apply(lambda x: map_dict[x])
     return df_samaster_sar_feature, df_long
 
 # Define the layout
@@ -68,7 +69,7 @@ def update_treemap_chart(selected_acc_random, selected_date):
 
     # Create a Treemap chart using Plotly
     fig = go.Figure(go.Treemap(
-        labels=filtered_df['Label'],
+        labels=filtered_df['CN_Label'],
         parents=filtered_df['Parent'],
         text=filtered_df['Value'],
         # values=df['Value'],
@@ -86,8 +87,9 @@ def update_treemap_chart(selected_acc_random, selected_date):
     return fig
 
 column_of_risk = ["SAMST_CUST_STAT", "SAMST_OD_STAT", "SAMST_TXN_STOP_STAT","SAMST_COURT_STAT", "SAMST_WARN_STAT", "SAMST_OD_OV_STAT", "SAMST_WASH_DB_OV_FLAG", "SAMST_WASH_CR_OV_FLAG"]
+map_dict = {"風險警示":"風險警示", "SAMST_CUST_STAT":"帳戶狀態代號", "SAMST_OD_STAT":"透支筆數", "SAMST_TXN_STOP_STAT":"暫停交易狀態", "SAMST_COURT_STAT":"法院扣押", "SAMST_WARN_STAT":"警示戶狀態", "SAMST_OD_OV_STAT":"是否透支超過限額旗標", "SAMST_WASH_DB_OV_FLAG":"當日洗錢防制法支出超過限額旗標", "SAMST_WASH_CR_OV_FLAG":"當日洗錢防制法存入超過限額旗標"}
 SAMASTER_SAR_PATH = "./Data/SAMASTER_SAR.csv"
-df_samaster_sar_feature, df_long = data_preprocessing(column_of_risk, SAMASTER_SAR_PATH)
+df_samaster_sar_feature, df_long = data_preprocessing(column_of_risk, SAMASTER_SAR_PATH, map_dict)
 # Get unique date values
 unique_dates = df_samaster_sar_feature['SNAP_DATE'].unique()
 layout = create_layout(df_long)
