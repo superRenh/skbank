@@ -42,7 +42,8 @@ def create_layout(df_long):
             options=[
                 {'label': f'ACC_RANDOM {acc}', 'value': acc} for acc in df_long['ACC_RANDOM'].unique()
             ],
-            value=df_long['ACC_RANDOM'].iloc[0]
+            value=df_long['ACC_RANDOM'].iloc[0],
+            style={'color': 'Black', 'width': '250px'}
         ),
         # DatePickerSingle for selecting a specific date
         dcc.DatePickerSingle(

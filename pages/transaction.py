@@ -1,6 +1,6 @@
 import pandas as pd
 import dash
-from dash import dcc, html, Input, Output, callback
+from dash import dcc, html, Input, Output, callback, State, ALL
 import plotly.graph_objects as go
 import plotly.express as px
 import dash_bootstrap_components as dbc
@@ -46,21 +46,22 @@ def data_preprocessing(SATXNREC_SAR_PATH, SAMASTER_SAR_PATH):
 def create_layout(df):
     layout = html.Div([
         # dcc.Link('Go to home page', href='/'),
-        html.H1("Transaction Data Dashboard"),
-        html.P("交易資料與餘額資料視覺化"),
-    
+        html.H1("交易資料與餘額資料儀表板"),
+        html.P("透過了解客戶的交易行為和帳戶餘額的變動情況，有助於銀行同仁追踪和管理資金流動。"),
+        html.Ul([html.Li("橫軸代表時間，縱軸表示金額"),
+                html.Li("人工審核的困境"),
+                html.Li("缺乏直觀的操作界面")]),
+        html.Br(),
         dcc.Graph(id='time-series-plot'),
         
-        html.Label("Filter by ACC_RANDOM:"),
-        dbc.DropdownMenu(
-        label="Select ACC_RANDOM",
-        children=[
-            dbc.DropdownMenuItem(
-                f'ACC_RANDOM {acc}',
-                id={'type': 'acc-dropdown', 'index': acc},
-                n_clicks=0  # Initialize the click count to 0
-            ) for acc in df['ACC_RANDOM'].unique()
+        html.Label("篩選帳號流水編號"),
+        dcc.Dropdown(
+            id='acc-random-dropdown',
+            options=[
+                {'label': f'帳號流水編號: {acc}', 'value': acc} for acc in df['ACC_RANDOM'].unique()
             ],
+            value=df['ACC_RANDOM'].iloc[0],
+            style={'color': 'Black', 'width': '250px'}
         )
     ])
     
@@ -113,6 +114,7 @@ layout = create_layout(df)
 
 @callback(
     Output('time-series-plot', 'figure'),
-    Input('acc-random-dropdown', 'value'))
+    Input('acc-random-dropdown', 'value')
+    )
 def update(selected_acc_random):
     return update_time_series_plot(selected_acc_random, df, df_histogram)
