@@ -34,10 +34,12 @@ def data_preprocessing(column_of_risk, SAMASTER_SAR_PATH, map_dict):
 def create_layout(df_long):
     layout = html.Div([
         html.H1("台幣活期帳戶檔警示平台"),
-        
+        html.Ul([html.Li("紅色: 警示", style={'color': 'pink'}),
+                 html.Li("灰色: 未警示", style={'color': 'gray'})]),
         dcc.Graph(id='treemap-chart'),
         
-        html.Label("Filter by ACC_RANDOM:"),
+        html.Label("篩選帳號流水編號與日期:"),
+        html.Br(),
         dcc.Dropdown(
             id='acc-random-dropdown',
             options=[

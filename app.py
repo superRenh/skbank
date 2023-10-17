@@ -14,7 +14,7 @@ page_style = {
 # Create a list of options for the dropdown menu
 dropdown_options = [
     {'label': f"{page['name']} - {page['description']}", 'value': page['relative_path']}
-    for page in dash.page_registry.values() if page['name'] != 'Home' and page['name'] != 'Fraud Detection AI Model'
+    for page in dash.page_registry.values() if page['name'] != 'Home' and page['name'] != 'Fraud Detection AI Model' and page['name'] != 'alert notification'
 ]
 
 app.layout = html.Div([
@@ -23,7 +23,7 @@ app.layout = html.Div([
         [
             dbc.Button("Home Page", href="/", color="primary"),
             dbc.Button("Fraud Detection AI Model", href="/ai_model", color="warning"),
-            dbc.Button("Alert Notification", href="/", color="danger")
+            dbc.Button("Alert Notification", href="/alert_notification", color="danger")
         ]   
         ),
         

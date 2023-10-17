@@ -133,9 +133,9 @@ def update_risk_level_table(selected_predict_date):
     )], layout=go.Layout(margin=dict(t=50, b=0)))
 
     # Update the layout and return the figures
-    high_table.update_layout(title=f"高風險帳戶列表")
-    middle_table.update_layout(title=f"中風險帳戶列表")
-    low_table.update_layout(title=f"低風險帳戶列表")
+    high_table.update_layout(title=f"高度風險帳戶列表")
+    middle_table.update_layout(title=f"中度風險帳戶列表")
+    low_table.update_layout(title=f"低度風險帳戶列表")
 
     return high_table, middle_table, low_table
 

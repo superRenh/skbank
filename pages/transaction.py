@@ -55,6 +55,7 @@ def create_layout(df):
         dcc.Graph(id='time-series-plot'),
         
         html.Label("篩選帳號流水編號"),
+        html.Br(),
         dcc.Dropdown(
             id='acc-random-dropdown',
             options=[

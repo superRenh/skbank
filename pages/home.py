@@ -27,7 +27,7 @@ layout = html.Div([
     html.Br(),
     html.Br(),
     html.H2('系統流程架構'),
-    html.Div('以 Kafka 為底層建置即時資料串流平台，利用機器學習模型 Xgboost 建立即時精準識別異常交易 AI 模型，模型判讀結果串接至新光銀行異常交易行為偵測平台，落實即時自動化示警並推播給相關同仁，以達到示警交易對象與帳戶持有者，並透過風險警示儀表板提供一個直觀的操作界面，讓管理者可以方便地查看和管理異常交易偵測結果。'),
+    html.Div('利用機器學習模型 Xgboost 建立即時精準識別異常交易 AI 模型，模型判讀結果串接至新光銀行異常交易行為偵測平台，落實即時自動化示警並推播給相關同仁，以達到示警交易對象與帳戶持有者，並透過風險警示儀表板提供一個直觀的操作界面，讓管理者可以方便地查看和管理異常交易偵測結果。'),
     html.Br(),
     html.Img(src='data:image/png;base64,{}'.format(encode_image(fraud_detection_flow_filename)), style={'width': '50%', 'height': 'auto'}, alt='Fraud Detection Flow'),
     html.Br(),
