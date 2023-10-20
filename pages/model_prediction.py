@@ -12,7 +12,7 @@ TW_data = [
 {"Accuracy": "95.91%", "Recall": "67.39%", "Precision": "63.44%"}
 ]
 FR_data = [
-{"Accuracy": "90.88%", "Recall": "70.39%", "Precision": "77.34%"}
+{"Accuracy": "99.88%", "Recall": "94.38%", "Precision": "100.00%"}
 ]
 # Define the columns for the table
 columns = [{"name": col, "id": col} for col in ["Accuracy", "Recall", "Precision"]]
