@@ -62,7 +62,7 @@ def create_layout(df):
                 {'label': f'帳號流水編號: {acc}', 'value': acc} for acc in df['ACC_RANDOM'].unique()
             ],
             # value=df['ACC_RANDOM'].iloc[0],
-            value="3147049",
+            value="1858292",
             style={'color': 'Black', 'width': '250px'}
         )
     ])
