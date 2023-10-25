@@ -9,7 +9,7 @@ from plotly.subplots import make_subplots
 
 # Define AI model prediction result
 TW_data = [
-{"Accuracy": "95.91%", "Recall": "67.39%", "Precision": "63.44%"}
+{"Accuracy": "95.63%", "Recall": "71.03%", "Precision": "60.06%"}
 ]
 FR_data = [
 {"Accuracy": "99.88%", "Recall": "94.38%", "Precision": "100.00%"}
